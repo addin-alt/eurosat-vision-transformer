@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0F172A,35:0F766E,70:0284C7,100:38BDF8&height=240&section=header&text=Satellite%20Vision%20Transformer&fontSize=52&fontColor=ffffff&fontAlignY=38&desc=EuroSAT%20Classification%20%7C%20Transfer%20Learning%20%7C%20Hugging%20Face&descSize=16&descAlignY=60" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0F172A,35:0F766E,70:0284C7,100:38BDF8&height=240&section=header&text=Satellite%20Vision%20Transformer&fontSize=52&fontColor=ffffff&fontAlignY=38&desc=EuroSAT%20Classification%20%7C%20Transfer%20Learning%20%7C%20Vision%20Transformer%20%7C%20Remote%20Sensing&descSize=16&descAlignY=60" />
 
-<img src="https://readme-typing-svg.herokuapp.com/?font=Inter&weight=800&size=24&duration=2800&pause=900&color=38BDF8&center=true&vCenter=true&width=950&lines=State-of-the-Art+Computer+Vision;Google+ViT+%2B+Hugging+Face+Transformers;Remote+Sensing+%2B+Land+Use+Classification;98%25+Validation+Accuracy+in+1+Epoch" />
+<img src="https://readme-typing-svg.herokuapp.com/?font=Inter&weight=800&size=24&duration=2800&pause=900&color=38BDF8&center=true&vCenter=true&width=950&lines=Satellite+Land-Use+Classification;Google+ViT+%2B+Hugging+Face+Transformers;21%2C600+EuroSAT+Images+%7C+10+Land-Use+Classes;98.15%25+Validation+Accuracy+After+1+Epoch" />
 
 <br/>
 
@@ -11,107 +11,359 @@
 </a>
 
 <img src="https://img.shields.io/badge/Status-Completed-10B981?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Accuracy-98.05%25-7C3AED?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Validation%20Accuracy-98.15%25-7C3AED?style=for-the-badge" />
 <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
-<img src="https://img.shields.io/badge/Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
-<img src="https://img.shields.io/badge/Kaggle_GPU-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" />
+<img src="https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
+<img src="https://img.shields.io/badge/Kaggle-T4%20×%202-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" />
 
 </div>
 
+---
 
-##  Project Overview
+## ✨ Project Overview
 
-**Satellite Vision Transformer** is a deep learning computer vision project focused on **land-use and land-cover classification from satellite imagery**.
+**Satellite Vision Transformer** is a deep learning computer vision project for **land-use and land-cover classification from satellite imagery**.
 
-The project uses a pre-trained **Google Vision Transformer (ViT)** and applies **Transfer Learning** to the EuroSAT dataset. Instead of relying on a traditional Convolutional Neural Network (CNN), the model uses Transformer-based self-attention to learn visual patterns from satellite images.
+The project fine-tunes Google's pretrained **Vision Transformer (ViT)** on the **EuroSAT** satellite image dataset using **PyTorch** and the **Hugging Face Transformers** ecosystem.
 
-The trained model achieved approximately **98.05% validation accuracy after only 1 epoch**, demonstrating the effectiveness of transfer learning for remote-sensing image classification.
+Instead of using a traditional convolutional neural network, the model divides satellite images into fixed-size patches and processes them using Transformer-based self-attention.
 
-###  Key Highlights
+In the recorded Kaggle experiment, the model was trained for only **1 epoch** and achieved:
 
-*  Satellite image classification
-*  Vision Transformer (ViT) architecture
-*  Transfer learning from a pre-trained Google ViT
-*  Hugging Face Transformers ecosystem
-*  PyTorch-based training
-*  Approximately **98.05% validation accuracy**
-*  GPU-accelerated training on Kaggle
-*  10 EuroSAT land-use classes
-*  Computer Vision + Remote Sensing
+<div align="center">
 
-##  Primary Objectives
+<img src="https://img.shields.io/badge/Validation%20Accuracy-98.1481%25-22C55E?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Validation%20Loss-0.253656-0284C7?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Training%20Images-17%2C280-F59E0B?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Validation%20Images-4%2C320-7C3AED?style=for-the-badge" />
 
-The main objectives of this project are:
+</div>
 
-* Implement a modern **Vision Transformer** architecture for computer vision.
-* Apply transfer learning to satellite imagery.
-* Use the Hugging Face ecosystem for dataset processing and model training.
-* Build an efficient image preprocessing pipeline.
-* Convert raw image data into model-ready tensors.
-* Fine-tune a pre-trained Transformer model for a 10-class classification task.
-* Evaluate model performance using validation accuracy and loss.
-* Demonstrate practical applications of deep learning in remote sensing.
+---
+
+## 🎯 Primary Objectives
+
+The main objectives of this project are to:
+
+* Apply **Vision Transformers** to satellite image classification
+* Fine-tune a pretrained ViT using transfer learning
+* Classify satellite imagery into 10 land-use categories
+* Build a complete preprocessing pipeline for remote-sensing images
+* Use Hugging Face Datasets and Transformers for model development
+* Train efficiently using GPU acceleration
+* Evaluate classification performance on a held-out validation set
+* Demonstrate a practical application of Transformers beyond natural language processing
+
+---
 
 ## 🛰️ Dataset
 
-This project uses the **EuroSAT dataset**, a benchmark dataset for land-use and land-cover classification using satellite imagery.
+The project uses the **EuroSAT** dataset loaded directly through the Hugging Face Datasets library:
 
-The dataset contains satellite images representing different geographical and land-use categories.
+```python
+dataset = load_dataset("tanganke/eurosat", split="train")
+```
 
-### Dataset Classes
+The experiment loaded:
 
-The model classifies images into the following 10 categories:
+| Dataset Property         |         Value |
+| ------------------------ | ------------: |
+| Total Images             |    **21,600** |
+| Training Images          |    **17,280** |
+| Validation Images        |     **4,320** |
+| Number of Classes        |        **10** |
+| Train / Validation Split | **80% / 20%** |
+| Random Seed              |        **42** |
+| Input Resolution         | **224 × 224** |
 
-| Class                | Description                         |
-| -------------------- | ----------------------------------- |
-| AnnualCrop           | Agricultural land with annual crops |
-| Forest               | Forested areas                      |
-| HerbaceousVegetation | Herbaceous vegetation               |
-| Highway              | Roads and highways                  |
-| Industrial           | Industrial areas                    |
-| Pasture              | Pasture and grazing land            |
-| PermanentCrop        | Permanent agricultural crops        |
-| Residential          | Residential areas                   |
-| River                | Rivers and waterways                |
-| SeaLake              | Seas and lakes                      |
+### Land-Use Classes
 
-### Dataset Characteristics
+The dataset used in the notebook contains the following classes:
 
-* **Dataset:** EuroSAT
-* **Image Type:** Satellite imagery
-* **Number of Classes:** 10
-* **Input Resolution:** 224 × 224 pixels
-* **Task:** Multi-class image classification
+| ID | Class                                        |
+| -: | -------------------------------------------- |
+|  0 | Annual crop land                             |
+|  1 | Forest                                       |
+|  2 | Brushland or shrubland                       |
+|  3 | Highway or road                              |
+|  4 | Industrial buildings or commercial buildings |
+|  5 | Pasture land                                 |
+|  6 | Permanent crop land                          |
+|  7 | Residential buildings, homes, or apartments  |
+|  8 | River                                        |
+|  9 | Lake or sea                                  |
+
+These categories represent different types of land cover visible in satellite imagery.
+
+---
 
 ## 🏗️ System Architecture
 
 ```mermaid
 flowchart TD
 
-    A[Hugging Face Dataset] --> B[EuroSAT Satellite Images]
+    A[EuroSAT Dataset] --> B[21,600 Satellite Images]
 
-    B --> C[Image Preprocessing]
+    B --> C[80 / 20 Dataset Split]
 
-    C --> D[Resize to 224x224]
-    D --> E[RGB Tensor Conversion]
-    E --> F[Normalization]
+    C --> D1[17,280 Training Images]
+    C --> D2[4,320 Validation Images]
 
-    F --> G[16x16 Image Patches]
+    D1 --> E[Image Preprocessing]
+    D2 --> E
 
-    G --> H[Pre-trained Google Vision Transformer]
+    E --> F[Resize to 224 × 224]
+    F --> G[RGB Conversion]
+    G --> H[PyTorch Tensor]
+    H --> I[ViT Normalization]
 
-    H --> I[Transformer Encoder Layers]
+    I --> J[16 × 16 Image Patches]
 
-    I --> J[Classification Head]
+    J --> K[Google ViT Base]
+    K --> L[Transformer Encoder]
+    L --> M[10-Class Classification Head]
 
-    J --> K[10 Land-Use Classes]
+    M --> N[Land-Use Prediction]
 
-    K --> L[Validation Metrics]
-
-    L --> M[Satellite Image Prediction]
+    N --> O[Validation Accuracy]
 ```
 
+---
+
+## 🧠 Vision Transformer Model
+
+The project uses the pretrained model:
+
+```text
+google/vit-base-patch16-224-in21k
+```
+
+This is a **ViT-Base** architecture pretrained on ImageNet-21k.
+
+The model expects images with a resolution of:
+
+```text
+224 × 224 × 3
+```
+
+Each image is divided into **16 × 16 patches**.
+
+For a 224 × 224 image:
+
+```text
+224 / 16 = 14
+```
+
+This creates:
+
+```text
+14 × 14 = 196 image patches
+```
+
+Conceptually:
+
+```text
+Satellite Image
+       ↓
+224 × 224 RGB Image
+       ↓
+16 × 16 Patches
+       ↓
+196 Patch Tokens
+       ↓
+Patch Embeddings
+       ↓
+Transformer Encoder
+       ↓
+Image Representation
+       ↓
+10-Class Classification Head
+       ↓
+Land-Use Prediction
+```
+
+---
+
+## 🔄 Transfer Learning
+
+Training a Vision Transformer entirely from scratch would require a much larger dataset and substantially more computational resources.
+
+This project instead uses **transfer learning**.
+
+The pretrained ViT already contains visual representations learned from a large image collection. The existing model is loaded and its classification layer is adapted for the 10 EuroSAT classes.
+
+During initialization, Hugging Face reports that the original classifier weights are missing for this new task:
+
+```text
+classifier.bias   | MISSING
+classifier.weight | MISSING
+```
+
+This is expected because a new classification head is created for the **10 EuroSAT categories** and learned during fine-tuning.
+
+---
+
+## 🛠️ Image Preprocessing
+
+The raw satellite images are transformed before being passed to the Transformer.
+
+### Processing Pipeline
+
+```text
+Raw Satellite Image
+        ↓
+Convert to RGB
+        ↓
+Resize to 224 × 224
+        ↓
+Convert to PyTorch Tensor
+        ↓
+Normalize Pixel Values
+        ↓
+Model-Ready Tensor
+```
+
+The resulting tensor shape is:
+
+```text
+torch.Size([3, 224, 224])
+```
+
+Where:
+
+```text
+3   = RGB channels
+224 = image height
+224 = image width
+```
+
+Normalization uses the mean and standard deviation associated with the pretrained ViT image processor.
+
+---
+
+## ⚙️ Training Configuration
+
+The model was fine-tuned using Hugging Face's `Trainer` API.
+
+| Parameter                   | Configuration                       |
+| --------------------------- | ----------------------------------- |
+| Model                       | `google/vit-base-patch16-224-in21k` |
+| Epochs                      | **1**                               |
+| Learning Rate               | **5e-5**                            |
+| Per-Device Training Batch   | **16**                              |
+| Gradient Accumulation       | **2 steps**                         |
+| Per-Device Evaluation Batch | **16**                              |
+| Evaluation Strategy         | Every epoch                         |
+| Save Strategy               | Every epoch                         |
+| Best Model Metric           | Accuracy                            |
+| Training Images             | **17,280**                          |
+| Validation Images           | **4,320**                           |
+| GPU Environment             | **Tesla T4 × 2**                    |
+
+With two GPUs visible during the Kaggle run, the training setup produced **270 optimization steps** for the single epoch.
+
+---
+
+## 📊 Model Performance
+
+The model achieved strong validation performance after only one epoch of fine-tuning.
+
+### Final Recorded Results
+
+| Metric                      |             Result |
+| --------------------------- | -----------------: |
+| **Validation Accuracy**     |       **0.981481** |
+| **Validation Accuracy (%)** |       **98.1481%** |
+| Validation Loss             |       **0.253656** |
+| Logged Training Loss        |       **0.267159** |
+| Epochs                      |              **1** |
+| Global Training Steps       |            **270** |
+| Training Runtime            | **375.82 seconds** |
+| Training Samples / Second   |         **45.979** |
+
+<div align="center">
+
+### Validation Accuracy
+
+```text
+98.15%
+
+█████████████████████████████████████████████████░
+```
+
+</div>
+
+The result shows that a pretrained Vision Transformer can adapt effectively to satellite land-use classification with relatively little fine-tuning.
+
+> **Important:** The reported **98.15% accuracy is validation accuracy** from the held-out 20% split. The current notebook does not evaluate a separate independent test set.
+
+---
+
+## 🖥️ Training Environment
+
+The recorded Kaggle run used:
+
+```text
+Platform:
+Kaggle Notebook
+
+Accelerator:
+GPU T4 × 2
+
+Dataset Images:
+21,600
+
+Training Images:
+17,280
+
+Validation Images:
+4,320
+
+Training Epochs:
+1
+
+Training Runtime:
+~6.26 minutes
+
+Complete Notebook Runtime:
+~7.47 minutes
+```
+
+GPU acceleration makes fine-tuning the Vision Transformer substantially faster than CPU-based training.
+
+---
+
+## 🛠️ Technology Stack
+
+<div align="center">
+
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+<img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
+<img src="https://img.shields.io/badge/Transformers-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
+<img src="https://img.shields.io/badge/Hugging%20Face-Datasets-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
+<img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
+<img src="https://img.shields.io/badge/Kaggle-GPU-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" />
+
+</div>
+
+| Area                 | Technology                |
+| -------------------- | ------------------------- |
+| Programming Language | Python                    |
+| Deep Learning        | PyTorch                   |
+| Model Framework      | Hugging Face Transformers |
+| Dataset Library      | Hugging Face Datasets     |
+| Evaluation           | Hugging Face Evaluate     |
+| Image Processing     | TorchVision               |
+| Numerical Computing  | NumPy                     |
+| Visualization        | Matplotlib                |
+| Training Environment | Kaggle                    |
+| Hardware             | NVIDIA Tesla T4 × 2       |
+
+---
+
 ## 🗂️ Repository Structure
+
+A simple repository structure for the current project is:
 
 ```text
 satellite-vision-transformer/
@@ -120,379 +372,171 @@ satellite-vision-transformer/
 │   └── eurosat-vit-classifier.ipynb
 │
 ├── README.md
-│
+├── requirements.txt
 └── .gitignore
 ```
 
-### File Description
+| File                           | Description                                                             |
+| ------------------------------ | ----------------------------------------------------------------------- |
+| `eurosat-vit-classifier.ipynb` | Complete data loading, preprocessing, training, and evaluation notebook |
+| `README.md`                    | Project documentation                                                   |
+| `requirements.txt`             | Python dependencies                                                     |
+| `.gitignore`                   | Files excluded from version control                                     |
 
-| File                                     | Description                                              |
-| ---------------------------------------- | -------------------------------------------------------- |
-| `notebooks/eurosat-vit-classifier.ipynb` | Complete Kaggle/Jupyter training and evaluation notebook |
-| `README.md`                              | Project documentation                                    |
-| `.gitignore`                             | Files and folders excluded from Git                      |
-## 🛠️ Data Pipeline & Preprocessing
+---
 
-The raw satellite images cannot be directly passed into the Vision Transformer. They first need to be transformed into the mathematical representation expected by the model.
+## ⚙️ Getting Started
 
-### 1. Dataset Loading
-
-The EuroSAT dataset is loaded from the Hugging Face ecosystem.
-
-```text
-Hugging Face Hub
-       ↓
-EuroSAT Dataset
-       ↓
-Satellite Images
-```
-
-### 2. Image Resizing
-
-Each image is resized to:
-
-```text
-224 × 224 pixels
-```
-
-This matches the input resolution expected by the pre-trained ViT model.
-
-### 3. RGB Conversion
-
-Satellite images are converted into RGB representations suitable for the model.
-
-### 4. Tensor Conversion
-
-The images are converted into PyTorch tensors.
-
-The resulting tensor has the approximate structure:
-
-```text
-[3, 224, 224]
-```
-
-where:
-
-* `3` = RGB channels
-* `224` = image height
-* `224` = image width
-
-### 5. Normalization
-
-Pixel values are normalized using the preprocessing configuration associated with the pre-trained Vision Transformer.
-
-### 6. Patch Embedding
-
-The Vision Transformer divides the image into smaller patches.
-
-For a 224 × 224 image with 16 × 16 patches:
-
-```text
-224 / 16 = 14
-```
-
-Therefore:
-
-```text
-14 × 14 = 196 image patches
-```
-
-These patches are transformed into embeddings and passed through the Transformer encoder.
-
-##  Model Architecture
-
-The project uses the pre-trained Google Vision Transformer:
-
-```text
-google/vit-base-patch16-224-in21k
-```
-
-The model was originally pre-trained on a large image dataset and then fine-tuned for the EuroSAT classification task.
-
-### Model Pipeline
-
-```text
-Satellite Image
-      ↓
-Image Processor
-      ↓
-224 × 224 RGB Tensor
-      ↓
-16 × 16 Image Patches
-      ↓
-Patch Embeddings
-      ↓
-Vision Transformer Encoder
-      ↓
-Classification Head
-      ↓
-10 Land-Use Classes
-```
-
-### Why Vision Transformer?
-
-Traditional CNN architectures process images primarily through convolutional filters.
-
-Vision Transformers instead divide images into patches and use **self-attention** to learn relationships between different regions of an image.
-
-This makes the architecture particularly interesting for satellite imagery, where distant regions of an image can contain useful contextual information.
-
-## 📊 Model Performance & Metrics
-
-The model was evaluated on an unseen validation split.
-
-### Results
-
-| Metric                  |         Result |
-| ----------------------- | -------------: |
-| **Validation Accuracy** |     **98.05%** |
-| Training Epochs         |          **1** |
-| Training Loss           |      **~0.59** |
-| Architecture            |   **ViT-Base** |
-| Number of Classes       |         **10** |
-| Input Resolution        |  **224 × 224** |
-| Patch Size              |    **16 × 16** |
-| Hidden Size             |        **768** |
-| Transformer Layers      |         **12** |
-| Hardware                | **Kaggle GPU** |
-
-### 📈 Validation Accuracy
-
-```text
-Validation Accuracy
-        98.05%
-          ██████████████████████████████████████████████████
-```
-
-The strong validation performance demonstrates the effectiveness of using a pre-trained Vision Transformer for satellite image classification.
-
-> **Note:** Reported metrics are based on the experiment recorded in the included notebook. Results may vary depending on dataset splits, preprocessing, random seeds, hardware, and training configuration.
-##  Technologies Used
-
-### Programming Language
-
-* Python 3.10+
-
-### Deep Learning
-
-* PyTorch
-* TorchVision
-* Hugging Face Transformers
-
-### Dataset & Evaluation
-
-* Hugging Face Datasets
-* Hugging Face Evaluate
-* EuroSAT
-
-### Development Environment
-
-* Kaggle Notebook
-* Jupyter Notebook
-* GPU acceleration
-
-### Core Concepts
-
-* Computer Vision
-* Transfer Learning
-* Vision Transformers
-* Image Classification
-* Remote Sensing
-* Deep Learning
-* GPU Training
-##  Getting Started
-
-### Prerequisites
-
-Make sure you have:
-
-* Python 3.10+
-* Git
-* Jupyter Notebook
-* A CUDA-enabled GPU is recommended for training
-
-### 1. Clone the Repository
-
-Replace `YOUR-USERNAME` with your GitHub username.
+### Clone the Repository
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/satellite-vision-transformer.git
 cd satellite-vision-transformer
 ```
 
----
-
-### 2. Install Dependencies
+### Install Dependencies
 
 ```bash
-pip install torch torchvision transformers datasets evaluate matplotlib
+pip install torch torchvision transformers datasets evaluate matplotlib numpy pandas
 ```
 
----
-
-### 3. Launch Jupyter Notebook
+### Launch Jupyter
 
 ```bash
 jupyter notebook
 ```
 
-Then open:
+Open:
 
 ```text
 notebooks/eurosat-vit-classifier.ipynb
 ```
-## 💻 Running on Kaggle
 
-The project was designed to work well in a GPU-enabled Kaggle environment.
+---
 
-Recommended setup:
+## ☁️ Running on Kaggle
+
+This project was developed in a Kaggle Notebook.
+
+Recommended workflow:
 
 ```text
-Notebook Environment
+Create Kaggle Notebook
         ↓
-Enable GPU
+Enable GPU Accelerator
         ↓
-Load EuroSAT Dataset
+Install Transformers Libraries
+        ↓
+Download EuroSAT from Hugging Face
+        ↓
+Create 80 / 20 Split
         ↓
 Preprocess Images
         ↓
-Load Pre-trained ViT
+Load Pretrained ViT
         ↓
-Fine-tune Model
+Fine-Tune for 1 Epoch
         ↓
-Evaluate Accuracy
-        ↓
-Run Predictions
+Evaluate Validation Accuracy
 ```
-For faster training, enable a Kaggle GPU accelerator before executing the training cells.
+
+Required packages can be installed inside Kaggle with:
+
+```python
+!pip install -q transformers datasets evaluate
+```
+
 ---
 
-##  Example Prediction
+## 🔍 Model Workflow
 
-After training, the model can be used to classify previously unseen satellite imagery.
-
-Conceptually:
+The complete project pipeline can be summarized as:
 
 ```text
-Input Satellite Image
-        ↓
-Image Processor
-        ↓
-Vision Transformer
-        ↓
-Classification Probabilities
-        ↓
-Predicted Land-Use Category
-```
-
-Example:
-
-```text
-Input:
-Satellite Image
-
-Prediction:
-Forest
-
-Confidence:
-98.7%
-```
-The exact prediction and confidence depend on the image provided to the trained model.
-
-
-##  Project Highlights
-
-### 🔹 Transfer Learning
-
-Instead of training a Vision Transformer from scratch, this project starts with a powerful pre-trained model and adapts it to satellite imagery.
-
-### 🔹 Transformer-Based Computer Vision
-
-The project demonstrates how Transformer architectures can be applied beyond Natural Language Processing.
-
-### 🔹 Remote Sensing
-
-Satellite imagery provides an excellent real-world application for computer vision and deep learning.
-
-### 🔹 Efficient Fine-Tuning
-
-The model achieved approximately **98.05% validation accuracy after 1 epoch** in the recorded experiment.
-
-### 🔹 Modern AI Stack
-
-The project combines:
-
-```text
-PyTorch
-+
-Hugging Face
-+
-Vision Transformers
-+
 EuroSAT
-+
-GPU Computing
-```
-
-## 🔬 Possible Future Improvements
-
-Several improvements could be explored in future versions:
-
-* Train for additional epochs.
-* Perform systematic hyperparameter tuning.
-* Add data augmentation.
-* Compare ViT against CNN architectures such as ResNet and EfficientNet.
-* Generate a confusion matrix.
-* Calculate precision, recall, and F1-score for every class.
-* Add Grad-CAM or attention visualization.
-* Experiment with different Vision Transformer architectures.
-* Export the trained model for deployment.
-* Build a Streamlit or Gradio inference application.
-* Create an API for real-time satellite image classification.
-* Deploy the model to a cloud inference service.
-
-##  Potential Applications
-
-A satellite image classification system like this can support applications such as:
-
-*  Forest monitoring
-*  Agricultural analysis
-*  Urban planning
-*  Infrastructure monitoring
-*  Water-body detection
-*  Remote sensing
-*  Environmental monitoring
-*  Land-use analysis
-*  Industrial-area identification
-
-
-##  What This Project Demonstrates
-
-This project demonstrates practical experience with:
-
-```text
-Dataset Engineering
-        ↓
-Image Preprocessing
-        ↓
-Tensor Transformation
-        ↓
+   ↓
+21,600 Images
+   ↓
+80 / 20 Split
+   ↓
+17,280 Train + 4,320 Validation
+   ↓
+224 × 224 Preprocessing
+   ↓
+Pretrained Google ViT
+   ↓
 Transfer Learning
-        ↓
-Vision Transformers
-        ↓
-GPU Training
-        ↓
-Model Evaluation
-        ↓
-Computer Vision Inference
+   ↓
+10-Class Classification
+   ↓
+Validation Evaluation
+   ↓
+98.15% Accuracy
 ```
 
-It also demonstrates the ability to work with modern machine-learning tooling and apply pre-trained models to a specialized real-world domain.
+---
+
+## 🌍 Potential Applications
+
+Satellite image classification can support areas such as:
+
+* 🌲 Forest and vegetation monitoring
+* 🌾 Agricultural land analysis
+* 🏙️ Urban development monitoring
+* 🛣️ Infrastructure identification
+* 🏭 Industrial-area detection
+* 🌊 Water-body classification
+* 🛰️ Remote sensing research
+* 🌎 Environmental monitoring
+* 🗺️ Land-use and land-cover mapping
+
+The current project is an experimental image classifier and is not designed as a production geospatial decision system.
+
+---
+
+## 🔬 Future Improvements
+
+The current experiment provides a strong baseline, but several improvements could make the project more complete:
+
+* Train for additional epochs
+* Add data augmentation
+* Introduce a separate test set
+* Generate a confusion matrix
+* Calculate per-class precision, recall, and F1-score
+* Compare ViT with ResNet and EfficientNet
+* Compare multiple Transformer architectures
+* Add learning-rate scheduling
+* Perform hyperparameter tuning
+* Visualize Transformer attention
+* Analyze misclassified satellite images
+* Export the trained model
+* Add a single-image prediction interface
+* Build a Streamlit or Gradio application
+* Deploy the classifier through an API
+
+---
+
+## ⚠️ Current Limitations
+
+The recorded experiment evaluates performance using a **single 80/20 train-validation split** and only **one training epoch**.
+
+Important limitations include:
+
+* No independent test split is evaluated
+* Accuracy is the primary reported metric
+* No per-class precision, recall, or F1-score is currently reported
+* No confusion matrix is generated
+* No systematic hyperparameter search was performed
+* The experiment does not compare ViT with other architectures
+* Performance on satellite data outside the loaded EuroSAT dataset has not been evaluated
+
+For these reasons, the reported **98.15% validation accuracy** should be interpreted as the performance of this specific experimental configuration.
+
+---
 
 ## ⭐ GitHub Topics
 
-Recommended repository topics:
+Recommended topics:
 
 ```text
 computer-vision
@@ -509,26 +553,46 @@ transfer-learning
 machine-learning
 ```
 
+---
+
 ## 👨‍💻 Author
-Addin-alt
+
+<div align="center">
+
+### Developed by **Addin Alt**
+
+<a href="https://github.com/addin-alt">
+  <img src="https://img.shields.io/badge/GitHub-addin--alt-181717?style=for-the-badge&logo=github&logoColor=white" />
+</a>
+
+</div>
+
 Interested in:
 
 * Machine Learning
 * Deep Learning
 * Computer Vision
+* Vision Transformers
 * Generative AI
-* Transformers
 * Data Science
 * AI Engineering
 
-## ⭐ If You Found This Project Interesting
+---
 
-Feel free to ⭐ star the repository and explore the notebook to see the complete training pipeline.
+## ⭐ Support
+
+If you find this project useful or interesting, consider giving the repository a star.
 
 <div align="center">
 
 ### 🛰️ Satellite Vision Transformer
 
-**Computer Vision • Transfer Learning • Transformers • Remote Sensing**
+**Satellite Imagery • Vision Transformers • Transfer Learning • Remote Sensing**
+
+<br/>
+
+<img src="https://readme-typing-svg.herokuapp.com/?font=Inter&weight=700&size=19&duration=3000&pause=1000&color=38BDF8&center=true&vCenter=true&width=850&lines=21%2C600+EuroSAT+Satellite+Images;10-Class+Land-Use+Classification;98.15%25+Validation+Accuracy+After+1+Epoch" />
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:38BDF8,40:0F766E,100:0F172A&height=130&section=footer" />
 
 </div>
